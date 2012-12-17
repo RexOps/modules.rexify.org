@@ -105,6 +105,10 @@ sub show_pod {
 sub _get_pod {
    my ($file) = @_;
 
+   if($file !~ m/\.pm$/) {
+      return "";
+   }
+
    my @pod = qx{pod2html $file 2>/dev/null};
    chomp @pod;
 
