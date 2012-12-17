@@ -1,0 +1,46 @@
+% layout "default";
+% title "(R)?ex module search";
+
+
+% if ($hits->{total} == 0) {
+
+<h1>Search results for <%= param "q" %></h1>
+<p>No results found. :(</p>
+
+% } else {
+
+% my @stack = ();
+% for my $r (sort { $a->{_score} <=> $b->{_score} } @{ $hits->{hits} }) {
+% if(@stack ~~ m/$r->{fields}->{module}/) { next; }
+% push(@stack, $r->{fields}->{module});
+
+<table class="list_results" border="0">
+   <tr>
+      <td colspan="2"><h1><%= $r->{fields}->{desc} %></h1></td>
+   </tr>
+   <tr>
+      <td width="100">Name:</td>
+      <td><a href="/module/<%= $r->{fields}->{module} %>"><%= $r->{fields}->{module} %></a></td>
+   </tr>
+
+   <tr>
+      <td width="100">Description:</td>
+      <td><%= $r->{fields}->{desc} %></td>
+   </tr>
+
+   <tr>
+      <td width="100">Author:</td>
+      <td><%= $r->{fields}->{author} %></td>
+   </tr>
+
+   <tr>
+      <td colspan="2">&nbsp;</td>
+   </tr>
+
+
+</table>
+
+% }
+
+% }
+

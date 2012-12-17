@@ -1,0 +1,26 @@
+% layout 'default';
+% title '(R)?ex Modules';
+
+<div class="center">
+   <h1 class="center">Welcome to modules.rexify.org</h1>
+
+   <p class="left">This is a community driven module repository for (R)?ex. These modules can be used free of charge. For details see the license file of each module.</p>
+
+   <div class="vspace"></div>
+   <div class="vspace"></div>
+
+   <form action="/search" method="get" accept-charset="utf-8">
+      <input class="search_field" name="q" id="q" type="text" />
+      <a href="#" class="search_button">Search</a>
+   </form>
+
+   <div class="vspace"></div>
+   <div class="vspace"></div>
+   <div class="vspace"></div>
+
+   <a href="/contribute">Contribute</a>&nbsp;/&nbsp;<a href="/help">Help</a>
+
+   <div class="vspace"></div>
+   <div class="vspace"></div>
+
+</div>

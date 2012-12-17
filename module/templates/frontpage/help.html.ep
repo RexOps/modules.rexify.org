@@ -1,0 +1,28 @@
+% layout "default";
+% title "Howto use Rex Recipes";
+
+<h1>Howto use Modules</h1>
+
+<p>Using modules is simple. You can download the needed modules with the command <i>rexify</i>.</p>
+
+<p>If you already have written a <i>Rexfile</i> change into that directory and execute:</p>
+
+<div class="black-box"><pre class="bash">bash# rexify --use Your::Module</pre></div>
+
+<div class="vspace"></div>
+
+<p>If you want to create a new project execute this code: </p>
+
+<div class="black-box"><pre class="bash">bash# rexify {{project-name}} --use Your::Module</pre></div>
+
+<div class="vspace"></div>
+
+<p>These commands will download the module into the <i>lib</i> directory of your project. You can than use these modules in your Rexfile.</p>
+
+<div class="black-box"><pre class="perl"># Rexfile
+
+include qw/Your::Module/;
+
+# your tasks
+task "foo", sub {};</pre></div>
+

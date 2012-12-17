@@ -1,0 +1,34 @@
+.center {
+   text-align: center;
+}
+
+.search_field {
+   width: 60%;
+   padding: 5px;
+}
+
+h1 {
+   text-align: left;
+   margin-bottom: 25px;
+   padding-bottom: 5px;
+}
+
+.left {
+   text-align: left;
+}
+
+#contribute_page {
+   display: none;
+}
+
+#help_page {
+   display: none;
+}
+
+.list_results em {
+   background-color: #ff0;
+}
+
+.list_results {
+   width: 100%;
+}

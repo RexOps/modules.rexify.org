@@ -1,0 +1,130 @@
+% layout "default";
+% title "Contribute to Rex-Recipes";
+
+<h1>Contribute your own Module</h1>
+
+<p>Contributing to Rex Modules is easy. There is a <a href="https://github.com/krimdomu/rex-recipes">Github Repository</a> that you can just clone and send pull requests.</p>
+<p>You don't need to follow special style guidelines and if you have questions on how to implement something join us on irc.freenode.net / #rex.</p>
+
+<div class="vspace"></div>
+<h2>A module skeleton</h2>
+
+<p>First create a directory for your module:</p>
+
+<div class="black-box"><pre class="bash">bash# mkdir MyModule</pre></div>
+
+<div class="vspace"></div>
+<p>Than create a file named <i>__module__.pm</i> inside this directory. This file is the base module file. If someone include your module it will load this file.</p>
+
+<div class="black-box"><pre class="perl">package MyModule;
+
+use Rex -base;
+
+task "mytask", sub {
+   run "do-something";
+};
+
+1;</pre></div>
+<div class="vspace"></div>
+
+<p>Now create a file named <i>meta.yml</i>. This file is needed for the indexer to index your module so that everyone can find it.</p>
+
+<div class="black-box"><pre class="bash">Name: MyModule
+Description: My Simple Test Module
+Author: your name <your.name@mail.com>
+License: The License (for example: Apache 2.0 or GPL)</pre></div>
+
+<div class="vspace"></div>
+
+<h2>Adding Files</h2>
+
+<p>If you want to add files to your Module, for example configuration files for a service like <i>ntp.conf</i>, you can add these files under the directory <i>files</i>.
+
+<div class="black-box"><pre class="bash">bash# mkdir files
+bash# touch files/ntp.conf</pre></div>
+
+<div class="vspace"></div>
+
+<p>And than you can reference these files from within your module:</p>
+
+<div class="black-box"><pre class="perl"># upload ntp.conf to the server
+file "/etc/ntp.conf",
+   owner  =&gt; "root",
+   group  =&gt; "root",
+   source =&gt; "files/ntp.conf";
+</pre></div>
+
+<div class="vspace"></div>
+
+<h2>Templates</h2>
+
+<p>If you want to add templates to your Module, for example configuration files with variable content, you can add these templates under the directory <i>templates</i>.
+
+<div class="black-box"><pre class="bash">bash# mkdir templates
+bash# touch templates/ntp.conf.tpl</pre></div>
+
+<div class="vspace"></div>
+
+<p>And than you can reference these files from within your module:</p>
+
+<div class="black-box"><pre class="perl"># upload ntp.conf to the server
+file "/etc/ntp.conf",
+   owner  =&gt; "root",
+   group  =&gt; "root",
+   content =&gt; template("templates/ntp.conf.tpl", var1 =&gt; "foo", var2 =&gt; "bar");
+</pre></div>
+
+<div class="vspace"></div>
+
+
+<h2>Documentation</h2>
+
+<p>Now add some documentation to your Module. For that open the file <i>__module__.pm</i> and go to the bottom of this file.</p>
+
+<div class="black-box"><pre class="perl">package MyModule;
+
+use Rex -base;
+
+task "mytask", sub {
+   run "do-something";
+};
+
+1;
+
+=pod
+
+=head1 NAME
+
+MyModule - Module to do some stuff
+
+=head1 USAGE
+
+Put it in your I&lt;Rexfile&gt;
+
+ # your tasks
+ task "one", sub {};
+ task "two", sub {};
+    
+ require MyModule;
+
+And call it:
+
+ rex -H $host MyModule:mytask
+
+Or, to use it as a library
+
+ task "yourtask", sub {
+    MyModule::mytask();
+ };
+   
+ require MyModule;
+
+
+</pre></div>
+
+<div class="vspace"></div>
+
+<h2>Sending Pull Request</h2>
+
+<p>Now you can commit your module into your upstream repository at Github and send a pull request.</p>
+

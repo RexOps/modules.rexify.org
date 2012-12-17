@@ -1,0 +1,74 @@
+% layout "default";
+% title param("module");
+
+<h1><%= param "module" %></h1>
+
+<%= $module->{Description} %>
+
+<div class="vspace"></div>
+
+<%== $pod %>
+
+<div class="vspace"></div>
+<h1><a name="files">ADDITIONAL FILES</a></h1>
+
+<h2><a name="sub_modules">Sub Modules</a></h2>
+<ul class="simple-list">
+% my $mod_path = param("module");
+% $mod_path =~ s/::/\//g;
+<li><a href="/module/<%= param("module") %>"><%= param("module") %></a></li>
+% for my $f (@{ $files }) {
+ % next if($f !~ m/\.pm$/ );
+ % my $rel_path = $f;
+ % my $mod_name = $f;
+ % $rel_path =~ s/^$mod_path\///;
+ % $mod_name =~ s/\//::/g;
+ % $mod_name =~ s/\.pm$//;
+ % if($f =~ m/\.pm$/) {
+ <li><a href="/pod/<%= param("module") %>/file/<%= $rel_path %>"><%= $mod_name %></a></li>
+ % } else {
+   <li><%= $rel_path %></li>
+ % }
+% }
+</ul>
+
+% if(grep { /templates\// } @{ $files }) {
+<div class="vspace"></div>
+<h2><a name="templates_modules">Templates</a></h2>
+<ul class="simple-list">
+% for my $f (@{ $files }) {
+ % next if($f !~ m/templates\//);
+ % my $rel_path = $f;
+ % $rel_path =~ s/^$mod_path\///;
+   <li><%= $rel_path %></li>
+% }
+</ul>
+% }
+
+% if(grep { /files\// } @{ $files }) {
+<div class="vspace"></div>
+<h2><a name="files_modules">Files</a></h2>
+<ul class="simple-list">
+% for my $f (@{ $files }) {
+ % next if($f !~ m/files\//);
+ % my $rel_path = $f;
+ % $rel_path =~ s/^$mod_path\///;
+   <li><%= $rel_path %></li>
+% }
+</ul>
+% }
+
+
+% if(grep { ! /files\// && ! /templates\// && ! /\.pm$/ } @{ $files }) {
+<div class="vspace"></div>
+<h2><a name="unknown_files_modules">Other Files</a></h2>
+<ul class="simple-list">
+% for my $f (@{ $files }) {
+ % next if($f =~ m/files\// || $f =~ m/templates\// || $f =~ m/\.pm$/ );
+ % my $rel_path = $f;
+ % $rel_path =~ s/^$mod_path\///;
+   <li><%= $rel_path %></li>
+% }
+</ul>
+% }
+
