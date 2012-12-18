@@ -14,6 +14,7 @@ sub startup {
       }
    }
    $self->plugin('Config', file => $cfg);
+   $self->plugin('RenderFile');
 
 
    # Router
@@ -28,6 +29,9 @@ sub startup {
 
    $r->get('/module/*module')->to("module#index");
    $r->get('/pod/*module/file/*file')->to("module#show_pod");
+
+   $r->get('/api/#version/get/recipes')->to("api#get_recipes");
+   $r->get('/api/#version/get/mod/*module')->to("api#get_module");
 }
 
 1;
