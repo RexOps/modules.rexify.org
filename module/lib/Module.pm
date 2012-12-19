@@ -32,6 +32,7 @@ sub startup {
 
    $r->get('/api/#version/get/recipes')->to("api#get_recipes");
    $r->get('/api/#version/get/mod/*module')->to("api#get_module");
+   $r->get('/api/#version/get/dep/*module')->to("api#get_dep_module");
 }
 
 1;

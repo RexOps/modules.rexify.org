@@ -5,6 +5,7 @@ use Mojo::UserAgent;
 use Mojo::JSON;
 use Data::Dumper;
 use Cwd qw(getcwd);
+use YAML;
 
 # This action will render a template
 sub index {
@@ -56,6 +57,31 @@ sub get_module {
 
 }
 
+sub get_dep_module {
+   my ($self) = @_;
+
+   my $module = $self->param("module");
+   my $module_path = $module;
+   $module_path =~ s/::/\//gms;
+   my $module_base_path = $self->config->{"module_directory"};
+   $module_path = "$module_base_path/$module_path";
+
+   if(-f "$module_path/meta.yml") {
+      my $meta = eval { local(@ARGV, $/) = ("$module_path/meta.yml"); <>; };
+
+      my $ref = Load($meta);
+
+      return $self->render_json($ref->{Require});
+   }
+
+   $self->render_json({ok => 0}, status => 404);   
+}
+
+
+################################################################################
+# FUNCTIONS
+################################################################################
+
 sub get_random {
 	my $count = shift;
 	my @chars = @_;
@@ -68,5 +94,7 @@ sub get_random {
 	
 	return $ret;
 }
+
+
 
 1;
