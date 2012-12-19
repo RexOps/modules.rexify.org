@@ -71,6 +71,10 @@ sub get_dep_module {
 
       my $ref = Load($meta);
 
+      if(! exists $ref->{Require}) {
+         return $self->render_json([]);
+      }
+
       return $self->render_json($ref->{Require});
    }
 
