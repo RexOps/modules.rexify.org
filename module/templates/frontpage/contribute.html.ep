@@ -7,8 +7,16 @@
 <p>You don't need to follow special style guidelines and if you have questions on how to implement something join us on irc.freenode.net / #rex.</p>
 
 <div class="vspace"></div>
-<h2>A module skeleton</h2>
+<h2>A module skeleton (short way)</h2>
 
+<p>You can create a module skeleton with the <i>rexify</i> command:</p>
+<div class="black-box"><pre class="bash">bash# rexify Your::Module --create-module</pre></div>
+<div class="small-vspace"></div>
+<p>This will create the directory structure Your/Module and all the initial files (as described below).</p>
+
+
+<div class="vspace"></div>
+<h2>A module skeleton (long way)</h2>
 <p>First create a directory for your module:</p>
 
 <div class="black-box"><pre class="bash">bash# mkdir MyModule</pre></div>
