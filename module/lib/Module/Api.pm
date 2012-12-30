@@ -6,6 +6,7 @@ use Mojo::JSON;
 use Data::Dumper;
 use Cwd qw(getcwd);
 use YAML;
+use Storable;
 
 # This action will render a template
 sub index {
@@ -24,7 +25,8 @@ sub get_recipes {
       return $self->render_json({ok => 0}, status => 404);
    }
 
-   $self->render_text($ua->get("https://raw.github.com/krimdomu/rex-recipes/$version/recipes.yml")->res->body);
+   my $ref = retrieve "modules.$version.db";
+   $self->render_text(Dump($ref));
 };
 
 
@@ -61,15 +63,11 @@ sub get_dep_module {
    my ($self) = @_;
 
    my $module = $self->param("module");
-   my $module_path = $module;
-   $module_path =~ s/::/\//gms;
-   my $module_base_path = $self->config->{"module_directory"};
-   $module_path = "$module_base_path/$module_path";
+   my $version = $self->param("version");
 
-   if(-f "$module_path/meta.yml") {
-      my $meta = eval { local(@ARGV, $/) = ("$module_path/meta.yml"); <>; };
-
-      my $ref = Load($meta);
+   if(-f "modules.$version.db") {
+      my $all_ref = retrieve "modules.$version.db";
+      my $ref = $all_ref->{$module};
 
       if(! exists $ref->{Require}) {
          return $self->render_json([]);
@@ -81,6 +79,25 @@ sub get_dep_module {
    $self->render_json({ok => 0}, status => 404);   
 }
 
+sub get_dep_perl {
+   my ($self) = @_;
+
+   my $module = $self->param("module");
+   my $version = $self->param("version");
+
+   if(-f "modules.$version.db") {
+      my $all_ref = retrieve "modules.$version.db";
+      my $ref = $all_ref->{$module};
+
+      if(! exists $ref->{PerlRequire}) {
+         return $self->render_json([]);
+      }
+
+      return $self->render_json($ref->{PerlRequire});
+   }
+
+   $self->render_json({ok => 0}, status => 404);   
+}
 
 ################################################################################
 # FUNCTIONS
