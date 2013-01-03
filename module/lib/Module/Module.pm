@@ -22,7 +22,7 @@ sub index {
 
    for my $d (@dirs) {
       opendir(my $dh, $d);
-      while(my $entry = readdir($dh)) {
+      FILE_ITER: while(my $entry = readdir($dh)) {
          next if ($entry =~ m/^\./);
          next if ($entry =~ m/__module__\.pm/);
 
@@ -37,8 +37,9 @@ sub index {
          if(-f "$d/$entry") {
             if(open(my $fh, "<", "$d/$entry")) {
                while(my $line = <$fh>) {
-                  if($line =~ m/^# !no_doc!/) {
-                     next;
+                  chomp $line;
+                  if($line =~ m/^# \!no_doc\!/sim) {
+                     next FILE_ITER;
                   }
                }
                close($fh);
@@ -81,13 +82,25 @@ sub show_pod {
 
    for my $d (@dirs) {
       opendir(my $dh, $d);
-      while(my $entry = readdir($dh)) {
+      FILE_ITER: while(my $entry = readdir($dh)) {
          next if ($entry =~ m/^\./);
          next if ($entry =~ m/__module__\.pm/);
 
          if(-d "$d/$entry") {
             push(@dirs, "$d/$entry");
             next;
+         }
+
+         if(-f "$d/$entry") {
+            if(open(my $fh, "<", "$d/$entry")) {
+               while(my $line = <$fh>) {
+                  chomp $line;
+                  if($line =~ m/^# \!no_doc\!/sim) {
+                     next FILE_ITER;
+                  }
+               }
+               close($fh);
+            }
          }
 
          my $push_f = "$d/$entry";
