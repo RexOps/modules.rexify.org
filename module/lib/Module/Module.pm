@@ -34,6 +34,16 @@ sub index {
          my $push_f = "$d/$entry";
          $push_f =~ s/^$module_base_path\///;
 
+         if(-f "$d/$entry") {
+            if(open(my $fh, "<", "$d/$entry")) {
+               while(my $line = <$fh>) {
+                  if($line =~ m/^# !no_doc!/) {
+                     next;
+                  }
+               }
+               close($fh);
+            }
+         }
          push(@files, $push_f);
       }
       closedir($dh);
