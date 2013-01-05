@@ -153,7 +153,8 @@ sub _get_pod {
    my $pod = join("\n", @pod);
    $pod =~ s/.*<body[^>]+>(.*?)<\/body>.*/$1/gms;
    $pod =~ s/"perl">\n/"perl">/gms;
-   $pod =~ s/<h1>TABLE OF CONTENTS.*?<\/ul>/_gen_toc($pod)/egms;
+   #$pod =~ s/<h1>TABLE OF CONTENTS.*?<\/ul>/_gen_toc($pod)/egms;
+   $pod =~ s/\<\!\-\- INDEX BEGIN \-\-\>(.*?)\<\!\-\- INDEX END \-\-\>/_gen_toc($pod)/egms;
    #$pod =~ s/<p>\s*<\/p>//gms;
    $pod =~ s/<div class="vspace"><\/div>\s*<div class="vspace"><\/div>/<div class="vspace"><\/div>/gms;
 
@@ -169,7 +170,7 @@ sub _gen_toc {
 
    my @headers = ($pod =~ m/<h1>(.*?)<\/h1>/g);
 
-   my $ret = '<ul class="simple-list">';
+   my $ret = '<h1>TABLE OF CONTENTS</h1><ul class="simple-list">';
 
    for (@headers) {
       next if m/TABLE OF CON/;
