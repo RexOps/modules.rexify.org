@@ -44,7 +44,7 @@ for my $d (@dir) {
 
       if($entry =~ m/meta\.yml/) {
          my $yaml = eval { local(@ARGV, $/) = ("$d/$entry"); <>; };
-         my $ref = Load($yaml);
+         my $ref = Load($yaml . "\n");
 
          print "   [-] " . $ref->{Name};
          
