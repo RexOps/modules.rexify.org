@@ -75,6 +75,6 @@
 
 <div class="vspace"></div>
 <h1><a name="install">INSTALLATION</a></h1>
-<p>To use this module use the following command:</p>
+<p>To use this module use the following command from the same directory where your <i>Rexfile</i> is located:</p>
 <div class="black-box"><pre class="bash">$ rexify --use <%= param "module" %></div></div>
 
