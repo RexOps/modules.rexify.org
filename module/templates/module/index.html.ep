@@ -12,7 +12,7 @@
 <div class="vspace"></div>
 <h1><a name="files">ADDITIONAL FILES</a></h1>
 
-<h2><a name="sub_modules">Sub Modules</a></h2>
+<h2><a name="sub_modules">SUB MODULES</a></h2>
 <ul class="simple-list">
 % my $mod_path = param("module");
 % $mod_path =~ s/::/\//g;
@@ -34,7 +34,7 @@
 
 % if(grep { /templates\// } @{ $files }) {
 <div class="vspace"></div>
-<h2><a name="templates_modules">Templates</a></h2>
+<h2><a name="templates_modules">TEMPLATES</a></h2>
 <ul class="simple-list">
 % for my $f (@{ $files }) {
  % next if($f !~ m/templates\//);
@@ -47,7 +47,7 @@
 
 % if(grep { /files\// } @{ $files }) {
 <div class="vspace"></div>
-<h2><a name="files_modules">Files</a></h2>
+<h2><a name="files_modules">FILES</a></h2>
 <ul class="simple-list">
 % for my $f (@{ $files }) {
  % next if($f !~ m/files\//);
@@ -61,7 +61,7 @@
 
 % if(grep { ! /files\// && ! /templates\// && ! /\.pm$/ } @{ $files }) {
 <div class="vspace"></div>
-<h2><a name="unknown_files_modules">Other Files</a></h2>
+<h2><a name="unknown_files_modules">OTHER FILES</a></h2>
 <ul class="simple-list">
 % for my $f (@{ $files }) {
  % next if($f =~ m/files\// || $f =~ m/templates\// || $f =~ m/\.pm$/ );
@@ -71,4 +71,10 @@
 % }
 </ul>
 % }
+
+
+<div class="vspace"></div>
+<h1><a name="install">INSTALLATION</a></h1>
+<p>To use this module use the following command:</p>
+<div class="black-box"><pre class="bash">$ rexify --use <%= param "module" %></div></div>
 

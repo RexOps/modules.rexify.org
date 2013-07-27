@@ -178,7 +178,7 @@ sub _gen_toc {
       $ret .= "<li>$_</li>";
    }
 
-   $ret .= '<li><a href="#files">ADDITIONAL FILES</a></li>';
+   $ret .= '<li><a href="#files">ADDITIONAL FILES</a></li><li><a href="#install">INSTALLATION</a></li>';
 
    $ret .= "</ul>";
 
