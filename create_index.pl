@@ -97,6 +97,7 @@ sub index_module {
    return if(! -f "$dir/meta.yml");
 
    my $yaml = eval { local(@ARGV, $/) = ("$dir/meta.yml"); <>; };
+   $yaml .= "\n";
    my $ref = Load($yaml);
 
    my $module  = $ref->{Name};
