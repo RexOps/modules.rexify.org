@@ -52,6 +52,10 @@ sub get_module {
    system("git checkout $version");
 
    system("tar czf ../$u.tar.gz $mod $mod_name >/dev/null 2>&1");
+   if($? != 0) {
+      unlink "../$u.tar.gz";
+      system("tar czf ../$u.tar.gz $mod >>/tmp/out.log 2>&1");
+   }
 
    chdir($cur_dir);
 
