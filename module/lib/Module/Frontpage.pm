@@ -18,7 +18,7 @@ sub search {
    my $term = $self->param("q");
 
    my $ua = Mojo::UserAgent->new;
-   my $tx = $ua->post("http://localhost:9200/modules/_search?pretty=true", json => {
+   my $tx = $ua->post("http://172.17.42.1:9200/modules/_search?pretty=true", json => {
       query => {
          query_string => {
             default_field => "file",
