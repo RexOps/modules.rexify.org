@@ -9,11 +9,15 @@ use Mojo::JSON;
 use Data::Dumper;
 use YAML;
 
-my $index_server = $ARGV[0];
-my $index_port   = $ARGV[1];
-my $index_dir    = $ARGV[2];
+my $index_server = ($ARGV[0] || "localhost");
+my $index_port   = ($ARGV[1] || "9200");
+my $index_dir    = ($ARGV[2] || "/tmp/$$/rex-recipes");
 
 $|++;
+
+system "rm -rf /tmp/$$";
+system "cd /tmp/$$ ; git clone https://github.com/RexOps/rex-recipes.git";
+
 
 if(! $index_server) {
    print "You have to set the server where to store the index.\n";
