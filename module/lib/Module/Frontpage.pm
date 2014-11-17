@@ -34,22 +34,22 @@ sub search {
    });
 
    if(my $json = $tx->res->json) {
-      return $self->render("search", hits => $json->{hits});
+      return $self->render("frontpage/search", hits => $json->{hits});
    }
    else {
-      return $self->render("search", hits => { total => 0, });
+      return $self->render("frontpage/search", hits => { total => 0, });
    }
 
-   $self->render;
+   $self->render("frontpage/search");
 }
 
 sub help {
    my ($self) = @_;
-   $self->render;
+   $self->render("frontpage/help");
 }
 
 sub contribute {
    my ($self) = @_;
-   $self->render;
+   $self->render("frontpage/contribute");
 }
 1;

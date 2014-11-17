@@ -22,11 +22,11 @@ sub get_recipes {
    my $version = $self->param("version");
 
    if($version !~ m/^\d+\.\d+$/) {
-      return $self->render_json({ok => 0}, status => 404);
+      return $self->render(json => {ok => 0}, status => 404);
    }
 
    my $ref = retrieve "modules.$version.db";
-   $self->render_text(Dump($ref));
+   $self->render(text => Dump($ref));
 };
 
 
@@ -74,13 +74,13 @@ sub get_dep_module {
       my $ref = $all_ref->{$module};
 
       if(! exists $ref->{Require}) {
-         return $self->render_json([]);
+         return $self->render(json => []);
       }
 
-      return $self->render_json($ref->{Require});
+      return $self->render(json => $ref->{Require});
    }
 
-   $self->render_json({ok => 0}, status => 404);   
+   $self->render(json => {ok => 0}, status => 404);   
 }
 
 sub get_dep_perl {
@@ -94,13 +94,13 @@ sub get_dep_perl {
       my $ref = $all_ref->{$module};
 
       if(! exists $ref->{PerlRequire}) {
-         return $self->render_json([]);
+         return $self->render(json => []);
       }
 
-      return $self->render_json($ref->{PerlRequire});
+      return $self->render(json => $ref->{PerlRequire});
    }
 
-   $self->render_json({ok => 0}, status => 404);   
+   $self->render(json => {ok => 0}, status => 404);   
 }
 
 ################################################################################
