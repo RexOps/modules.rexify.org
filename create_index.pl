@@ -16,6 +16,7 @@ my $index_dir    = ($ARGV[2] || "/tmp/$$/rex-recipes");
 $|++;
 
 system "rm -rf /tmp/$$";
+system "mkdir -p /tmp/$$";
 system "cd /tmp/$$ ; git clone https://github.com/RexOps/rex-recipes.git";
 
 
