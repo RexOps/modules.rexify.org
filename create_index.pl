@@ -155,7 +155,7 @@ sub index_modules_document {
    $fs =~ s/\/__module__\.pm$//;
 
    my $ref = {
-      file  => $base64_content,
+      file  => join("\n", @content),
       desc => $data->{desc},
       fs    => $fs,
       title => $title,
@@ -170,7 +170,7 @@ sub index_modules_document {
    print "\r";
    print " "x80;
 
-   if($tx->res->json && $tx->res->json->{ok}) {
+   if($tx->success) {
       print "\r   [+] $doc ($idx)   \n";
    }
    else {

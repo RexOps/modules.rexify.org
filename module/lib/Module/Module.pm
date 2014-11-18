@@ -52,7 +52,8 @@ sub index {
 
    if(-f "$module_base_path/$module_path/meta.yml") {
       my $yaml = eval { local(@ARGV, $/) = ("$module_base_path/$module_path/meta.yml"); <>; };
-      my $ref = Load($yaml);
+      $yaml .= "\n";
+      my $ref = YAML::Load($yaml);
 
       return $self->render("module/index", pod => $pod, module => $ref, files => \@files);
    }
